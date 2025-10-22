@@ -12,4 +12,13 @@ def create_app():
     # Initialize extensions
     db.init_app(app)
     
+    # Register blueprints
+    from .views.index import index_views
+    from .views.auth import auth_views
+    from .views.Admin import admin_views
+    
+    app.register_blueprint(index_views)
+    app.register_blueprint(auth_views)
+    app.register_blueprint(admin_views)
+    
     return app
