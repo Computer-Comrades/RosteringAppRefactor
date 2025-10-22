@@ -5,5 +5,3 @@ from datetime import datetime
 def get_shift():
     shift= get_json_shifts()
 
-def view_combined_roster():
-    return Shifts.query.all() 

@@ -1,4 +1,4 @@
-from App.models import User, Staff, Admin
+from App.models import User, Staff, Admin, Shifts
 from App.database import db
 
 def create_user(username, password):
@@ -55,3 +55,7 @@ def update_user(id, username):
         db.session.commit()
         return True
     return None
+
+#Refactor: Combine shift and attendance reports
+def view_combined_roster():
+    return Shifts.query.all() 

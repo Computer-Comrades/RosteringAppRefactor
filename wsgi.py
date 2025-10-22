@@ -4,7 +4,7 @@ from flask.cli import with_appcontext, AppGroup
 from App.database import db, get_migrate
 from App.models import (User, Admin, Staff, Attendance, Shifts)
 from App.main import create_app
-from App.controllers import ( create_user, get_all_users_json, get_all_users, initialize, delete_user, create_admin, create_staff )
+from App.controllers import ( create_user, get_all_users_json, get_all_users, initialize, delete_user, create_admin, create_staff,get_user_by_username )
 from App.controllers.admin import (schedule_shifts, view_shift_report)
 from App.controllers.attendance import (staff_in, staff_out)
 from App.controllers.shifts import (view_combined_roster)
@@ -117,6 +117,8 @@ def get_shifts_cmd():
 def report_cmd():
     username = input("Enter your username: ").strip()
 
+    #refactor use the controller get_user_by_username from controllers/user.py
+    user = get_user_by_username(username)
     user = User.query.filter_by(username=username).first()
     if not user:
         print("User not found.")

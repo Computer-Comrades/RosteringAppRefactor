@@ -3,6 +3,7 @@ from App.models.attendance import Attendance
 from App.database import db
 from datetime import datetime
 
+
 def schedule_shifts(staff_id, date, start_time, end_time):
     staff = Staff.query.get(staff_id)
     if not staff:
@@ -13,6 +14,7 @@ def schedule_shifts(staff_id, date, start_time, end_time):
     db.session.commit()
     return shift
 
+# View all the attendance recorded by the staff
 def view_shift_report():
     return Attendance.query.all()
-    
+
