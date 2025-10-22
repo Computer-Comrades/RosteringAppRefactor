@@ -1,6 +1,6 @@
 from flask import Blueprint, render_template, jsonify, request, flash, send_from_directory, flash, redirect, url_for
 from flask_jwt_extended import jwt_required, current_user, unset_jwt_cookies, set_access_cookies, get_jwt_identity, get_jwt
-from App.controllers.admin import create_shift as controller_create_shift
+#from App.controllers.admin import create_shift as controller_create_shift
 
 admin_views = Blueprint('admin_views', __name__, template_folder='../templates')
 
