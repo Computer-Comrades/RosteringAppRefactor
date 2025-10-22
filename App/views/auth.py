@@ -10,11 +10,24 @@ auth_views = Blueprint('auth_views', __name__, template_folder='../templates')
 @auth_views.route('/login', methods=['GET', 'POST'])
 def login():
     if request.method == 'POST':
-        username = request.form.get('username')
-        password = request.form.get('password')
+        # Support both JSON and form data
+        if request.is_json:
+            data = request.get_json()
+            username = data.get('username')
+            password = data.get('password')
+        else:
+            username = request.form.get('username')
+            password = request.form.get('password')
+        
         access_token = jwt_authenticate(username, password)
         if access_token:
             return jsonify(access_token=access_token), 200
         else:
             return jsonify(message='Invalid credentials'), 401
         
+@auth_views.route('/logout', methods=['POST'])
+@jwt_required()
+def logout():
+    response = jsonify(message='Logout successful')
+    unset_jwt_cookies(response)
+    return response, 200

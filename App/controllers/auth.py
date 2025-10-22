@@ -6,9 +6,9 @@ def authenticate(username, password):
     staff = Staff.query.filter_by(username=username).first()
     if staff and staff.check_password(password):
         return staff
-    admin = Admin.query.filter_by(username=username).first()
-    if admin and admin.check_password(password):
-        return admin
+    us = Admin.query.filter_by(username=username).first()
+    if us and us.check_password(password):
+        return us
     return None
 
 def jwt_authenticate(username, password):
