@@ -6,17 +6,11 @@ from App.controllers.admin import schedule_shifts, view_shift_report
 from App.controllers.shifts import get_shift
 admin_views = Blueprint('admin_views', __name__, template_folder='../templates')
 
-
-
-from App.controllers.auth import login as auth_login
 #from App.controllers.auth import admin_required
 # Define your admin routes here
 
 
-
 @admin_views.route('/api/shifts', methods=['POST'])
-# @jwt_required()
-# @admin_required()
 def admin_create_shifts():
     data = request.get_json()
     staff_id = data.get('staff_id')

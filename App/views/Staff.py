@@ -6,8 +6,6 @@ from App.models.staff import Staff
 
 staff_views = Blueprint('staff_views', __name__, template_folder='../templates')
 
-
-from App.controllers.auth import login as auth_login
 # Define your staff routes here
 
 @staff_views.route('/api/attnd', methods=['POST'])

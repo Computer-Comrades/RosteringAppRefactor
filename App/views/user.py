@@ -3,7 +3,6 @@ from flask_jwt_extended import jwt_required, current_user, unset_jwt_cookies, se
 
 user_views = Blueprint('user_views', __name__, template_folder='../templates')
 
-from App.controllers.auth import login
 from App.controllers.user import create_user as controller_create_user, create_admin as controller_create_admin,create_staff as controller_create_staff
 
 @user_views.route('/create-user',methods=['POST'])
