@@ -3,5 +3,6 @@ from App.database import db
 from datetime import datetime
 
 def get_shift():
-    shift= get_json_shifts()
+    return [a.get_json_shifts() for a in Shifts.query.all()]
+
 

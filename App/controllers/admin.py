@@ -16,5 +16,5 @@ def schedule_shifts(staff_id, date, start_time, end_time):
 
 # View all the attendance recorded by the staff
 def view_shift_report():
-    return Attendance.query.all()
+    return [a.get_json() for a in Attendance.query.all()]
 

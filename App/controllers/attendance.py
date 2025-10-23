@@ -33,5 +33,3 @@ def staff_out(username, shift_id):
     return atd
 
 
-def get_all_atnd_json():
-    return [a.get_json() for a in Attendance.query.all()]

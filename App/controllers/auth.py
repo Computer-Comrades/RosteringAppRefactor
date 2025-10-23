@@ -1,5 +1,7 @@
 from flask_jwt_extended import create_access_token, jwt_required, JWTManager, get_jwt_identity, verify_jwt_in_request
-
+from functools import wraps
+from flask_jwt_extended import jwt_required, current_user
+from flask import jsonify
 from App.models import User
 from App.database import db
 
@@ -50,3 +52,16 @@ def add_auth_context(app):
           is_authenticated = False
           current_user = None
       return dict(is_authenticated=is_authenticated, current_user=current_user)
+  
+  # Custom decorator to check if user is admin
+# def admin_required():
+#     def wrapper(fn):
+#         @wraps(fn)
+#         @jwt_required()
+#         def decorator(*args, **kwargs):
+#             # current_user is loaded via the user_lookup_callback in auth.py
+#             if current_user.position != 'admin':
+#                 return jsonify(message='Admin access required'), 403
+#             return fn(*args, **kwargs)
+#         return decorator
+#     return wrapper
