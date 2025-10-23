@@ -6,7 +6,7 @@ user_views = Blueprint('user_views', __name__, template_folder='../templates')
 from App.controllers.auth import jwt_authenticate
 from App.controllers.user import create_user as controller_create_user, create_admin as controller_create_admin,create_staff as controller_create_staff
 
-@user_views.route('/api/user',methods=['POST'])
+@user_views.route('/create-user',methods=['POST'])
 def create_user():
     data = request.get_json()
     username = data.get('username')
@@ -17,7 +17,7 @@ def create_user():
         return jsonify(message=f'User {username} created successfully'), 201
     return jsonify(message='User creation failed'), 400
 
-@user_views.route('/api/admin', methods=['POST'])
+@user_views.route('/create-admin', methods=['POST'])
 def create_admin():
     data = request.get_json()
     username = data.get('username')
@@ -28,7 +28,7 @@ def create_admin():
         return jsonify(message=f'Admin {username} created successfully'), 201
     return jsonify(message='Admin creation failed'), 400
 
-@user_views.route('/api/staff', methods=['POST'])
+@user_views.route('/create-staff', methods=['POST'])
 def create_staff():
     data = request.get_json()
     username = data.get('username')

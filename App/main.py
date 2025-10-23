@@ -19,12 +19,14 @@ def create_app():
     from .views.index import index_views
     from .views.auth import auth_views
     from .views.Admin import admin_views
+    from .views.Staff import staff_views
     from .views.user import user_views
     
     app.register_blueprint(index_views)
     app.register_blueprint(auth_views)
     app.register_blueprint(admin_views)
     app.register_blueprint(user_views)
+    app.register_blueprint(staff_views)
 
     
     return app
