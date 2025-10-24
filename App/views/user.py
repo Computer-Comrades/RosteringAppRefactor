@@ -3,7 +3,7 @@ from flask_jwt_extended import jwt_required, current_user, unset_jwt_cookies, se
 
 user_views = Blueprint('user_views', __name__, template_folder='../templates')
 
-from App.controllers.user import create_user as controller_create_user, create_admin as controller_create_admin,create_staff as controller_create_staff
+from App.controllers.user import create_user as controller_create_user, create_admin as controller_create_admin,create_staff as controller_create_staff, get_all_users_json
 
 @user_views.route('/create-user',methods=['POST'])
 def create_user():
@@ -37,3 +37,9 @@ def create_staff():
     if staff:
         return jsonify(message=f'Staff {username} created successfully'), 201
     return jsonify(message='Staff creation failed'), 400
+
+@user_views.route('/api/users', methods=['GET'])
+def get_users_action():
+    users = get_all_users_json()
+    return jsonify(users)
+    

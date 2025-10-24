@@ -4,6 +4,8 @@ from functools import wraps
 #from App.controllers.admin import create_shift as controller_create_shift
 from App.controllers.admin import schedule_shifts, view_shift_report
 from App.controllers.shifts import get_shift
+from App.models.admin import Admin
+
 admin_views = Blueprint('admin_views', __name__, template_folder='../templates')
 
 #from App.controllers.auth import admin_required
@@ -11,7 +13,12 @@ admin_views = Blueprint('admin_views', __name__, template_folder='../templates')
 
 
 @admin_views.route('/api/shifts', methods=['POST'])
+@jwt_required()
 def admin_create_shifts():
+    # Verify that the current user is an admin
+    if not current_user or not isinstance(current_user, Admin):
+        return jsonify(message='Unauthorized. Admin access required.'), 403
+    
     data = request.get_json()
     staff_id = data.get('staff_id')
     date = data.get('date')
@@ -26,6 +33,10 @@ def admin_create_shifts():
 @admin_views.route('/api/reports', methods=['GET'])
 @jwt_required()
 def view_report():
+    # Verify that the current user is an admin
+    if not current_user or not isinstance(current_user, Admin):
+        return jsonify(message='Unauthorized. Admin access required.'), 403
+
     report = view_shift_report()
     if report:
         return jsonify(message=report), 200
@@ -34,6 +45,10 @@ def view_report():
 @admin_views.route('/api/shiftlist', methods=['GET'])
 @jwt_required()
 def view_shift_list():
+    # Verify that the current user is an admin
+    if not current_user or not isinstance(current_user, Admin):
+        return jsonify(message='Unauthorized. Admin access required.'), 403
+    
     schedule= get_shift()
     if schedule:
         return jsonify(message=schedule), 200

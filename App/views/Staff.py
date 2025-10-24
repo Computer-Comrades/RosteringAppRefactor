@@ -8,7 +8,7 @@ staff_views = Blueprint('staff_views', __name__, template_folder='../templates')
 
 # Define your staff routes here
 
-@staff_views.route('/api/attnd', methods=['POST'])
+@staff_views.route('/api/attnd-in', methods=['POST'])
 @jwt_required()
 def clock_in():
     # Verify that the current user is a staff member
@@ -49,6 +49,10 @@ def clock_out():
 @staff_views.route('/api/staffschedule', methods=['GET'])
 @jwt_required()
 def view_staff_schedule():
+    # Verify that the current user is a staff member
+    if not current_user or not isinstance(current_user, Staff):
+        return jsonify(message='Unauthorized. Staff access required.'), 403
+    
     schedule= get_shift()
     if schedule:
         return jsonify(message=schedule), 200
